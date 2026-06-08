@@ -1,37 +1,63 @@
-CREATE TABLE IF NOT EXISTS jobs (
-    job_id SERIAL PRIMARY KEY,
+CREATE TABLE jobs (
+    id BIGSERIAL PRIMARY KEY,
 
-    title TEXT NOT NULL,
+    url TEXT UNIQUE,
 
-    company_name TEXT,
+    title TEXT,
+    company TEXT,
 
-    salary_min INTEGER,
+    working_mode TEXT,
 
-    salary_max INTEGER,
+    posted_at TIMESTAMP,
+    crawl_time TIMESTAMP,
 
-    location TEXT,
+    job_description TEXT,
+    requirements TEXT,
+    benefits TEXT,
 
-    source TEXT,
-
-    job_url TEXT UNIQUE,
-
-    description TEXT,
-
-    posted_date DATE,
-
-    created_at TIMESTAMP DEFAULT NOW()
+    source TEXT
 );
 
-CREATE TABLE IF NOT EXISTS skills (
-    skill_id SERIAL PRIMARY KEY,
-
-    skill_name TEXT UNIQUE NOT NULL
+CREATE TABLE skills (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT UNIQUE
 );
 
-CREATE TABLE IF NOT EXISTS job_skills (
-    job_id INTEGER REFERENCES jobs(job_id) ON DELETE CASCADE,
-
-    skill_id INTEGER REFERENCES skills(skill_id) ON DELETE CASCADE,
+CREATE TABLE job_skills (
+    job_id BIGINT REFERENCES jobs(id),
+    skill_id BIGINT REFERENCES skills(id),
 
     PRIMARY KEY(job_id, skill_id)
+);
+
+CREATE TABLE industries (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+);
+
+CREATE TABLE job_industries (
+    job_id BIGINT REFERENCES jobs(id),
+    industry_id BIGINT REFERENCES industries(id),
+
+    PRIMARY KEY(job_id, industry_id)
+);
+
+CREATE TABLE job_locations (
+    id BIGSERIAL PRIMARY KEY,
+
+    job_id BIGINT REFERENCES jobs(id),
+
+    location TEXT
+);
+
+CREATE TABLE specializations (
+    id BIGSERIAL PRIMARY KEY,
+    name TEXT UNIQUE
+);
+
+CREATE TABLE job_specializations (
+    job_id BIGINT REFERENCES jobs(id),
+    specialization_id BIGINT REFERENCES specializations(id),
+
+    PRIMARY KEY(job_id, specialization_id)
 );
