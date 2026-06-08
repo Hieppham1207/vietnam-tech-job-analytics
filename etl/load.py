@@ -6,10 +6,12 @@ from sqlalchemy import create_engine, text
 from extract import extract_city
 load_dotenv()
 
-engine = create_engine(
-    os.getenv("DATABASE_URL")
-)
-print(os.getenv("DATABASE_URL"))
+database_url = os.getenv("DATABASE_URL")
+
+if not database_url:
+    raise ValueError("DATABASE_URL not found")
+
+engine = create_engine(database_url)
 
 # Đọc JSON
 with open(
