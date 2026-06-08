@@ -39,7 +39,7 @@ def save_jobs_to_json(file_path, new_jobs):
         except Exception as e:
             print(f"Lỗi khi đọc file JSON cũ: {e}. Sẽ ghi đè file mới.")
     
-    existing_jobs.extend(new_jobs)
+    existing_jobs = new_jobs + existing_jobs
     os.makedirs(os.path.dirname(file_path), exist_ok=True)
     try:
         with open(file_path, "w", encoding="utf-8") as f:

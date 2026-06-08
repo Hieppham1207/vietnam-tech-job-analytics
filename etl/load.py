@@ -223,7 +223,18 @@ def insert_job_location(conn,job_id,location):
 
 with engine.begin() as conn:
 
-    for job in jobs:
+    # 1. Fetch all existing URLs from database
+    result = conn.execute(text("SELECT url FROM jobs"))
+    existing_urls = {row[0] for row in result.fetchall() if row[0]}
+
+    # 2. Filter new jobs
+    new_jobs = [job for job in jobs if job.get("url") not in existing_urls]
+
+    print(f"Total jobs in JSON: {len(jobs)}")
+    print(f"Already in database: {len(existing_urls)}")
+    print(f"New jobs to load: {len(new_jobs)}")
+
+    for job in new_jobs:
 
         job_id = get_or_create_job(
             conn,
