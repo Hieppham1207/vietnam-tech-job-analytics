@@ -216,7 +216,7 @@ python database/init_db.py
 ---
 
 ## 📅 Tự động hóa lịch trình (Automation với GitHub Actions)
-Dự án được cấu hình sẵn GitHub Actions tại `.github/workflows/crawl.yml` để chạy tự động cào và đồng bộ dữ liệu hàng ngày vào lúc **(08:00 AM, 12:00 PM, 4:00 PM Giờ Việt Nam)**:
+Dự án được cấu hình sẵn GitHub Actions tại `.github/workflows/crawl.yml` để chạy tự động cào và đồng bộ dữ liệu hàng ngày vào lúc **(08:00 AM, 12:00 PM, 4:00 PM, 8:00 PM Giờ Việt Nam)**:
 - Không cần cắm máy chạy local, Actions tự động setup Python, cài đặt dependencies, chạy file crawl và load dữ liệu trực tiếp lên DB Supabase từ xa.
 - Để sử dụng tính năng này trên kho lưu trữ của bạn, cần add biến mật `DATABASE_URL` vào phần **GitHub Secrets** của repository.
 
@@ -248,3 +248,6 @@ Truy cập vào Supabase Dashboard, chọn dự án của bạn và vào mục *
    - **Password**: Nhập mật khẩu cơ sở dữ liệu.
 5. Nhấn **Connect**. Nếu hiển thị hộp thoại cảnh báo về kết nối bảo mật (Encryption), nhấn **OK** hoặc **Run** để tiếp tục.
 6. Khi kết nối thành công, danh sách các bảng như `jobs`, `skills`, `job_skills`, `job_locations`... sẽ hiện lên trong cửa sổ Navigator. Bạn chọn các bảng cần phân tích, rồi nhấn **Load** để bắt đầu thiết kế dashboard và phân tích dữ liệu tuyển dụng IT.
+
+## Dashboard PowerBI
+![alt text](image.png)
